@@ -32,7 +32,6 @@ class MovieViewModel {
                     DispatchQueue.main.async {
                         self.movieDelegate?.moviesDownloaded(movies: self.movies)
                     }
-
                 }
             case .failure:
                 DispatchQueue.main.async {
