@@ -21,12 +21,7 @@ extension NetworkRequest {
             completion(.failure(NetworkError.invalidURL))
             return
         }
-        var urlRequest = URLRequest(url: url)
-        urlRequest.httpMethod = resource.method
-        for header in resource.headers {
-            urlRequest.setValue(header.value, forHTTPHeaderField: header.name)
-        }
-
+        let urlRequest = URLRequest(url: url)
         let task = URLSession.shared.dataTask(with: urlRequest) {data, _, error in
             guard error == nil else {
                 completion(.failure(error!))

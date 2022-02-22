@@ -19,7 +19,7 @@ class MovieListController: UIViewController {
         super.viewDidLoad()
         setNavBar()
         setTableView()
-        movieViewModel.delegate = self
+        movieViewModel.movieDelegate = self
         movieViewModel.fetchMovies()
 
     }
@@ -37,22 +37,54 @@ class MovieListController: UIViewController {
         moviesTableView.tableFooterView = UIView()
     }
 
+    func getErrorView() -> UIView {
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: moviesTableView.bounds.size.width,
+                                          height: 150))
+
+        label.text = "No data.. Click to refresh"
+        label.textColor = UIColor.purple
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        label.sizeToFit()
+        label.isUserInteractionEnabled = true
+
+        let tap = UITapGestureRecognizer(target: self, action: #selector(reload))
+        tap.numberOfTouchesRequired = 1
+        label.addGestureRecognizer(tap)
+        return label
+    }
+
+    @objc func reload() {
+        moviesTableView.backgroundView = nil
+        movieViewModel.fetchMovies()
+    }
+
 }
 
 extension MovieListController: MovieProtocol {
+    func errorOccured() {
+        if movies == nil || movies?.count == 0 {
+            moviesTableView.backgroundView = getErrorView()
+        } else {
+            moviesTableView.backgroundView = nil
+        }
+    }
+
     func moviesDownloaded(movies: [Movie]) {
         self.movies = movies
         moviesTableView.reloadData()
     }
+
 }
 
 extension MovieListController: UITableViewDelegate {
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         moviesTableView.deselectRow(at: indexPath, animated: true)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let movieDetailController = storyboard.instantiateViewController(identifier:
-                                       "MovieDetailController") as? MovieDetailController {
-            movieDetailController.movie = movies?[indexPath.row]
+                                                                                "MovieDetailController") as? MovieDetailController {
+            movieDetailController.movieId = movies?[indexPath.row].id
             movieDetailController.movieViewModel = movieViewModel
             movieDetailController.modalPresentationStyle = .fullScreen
             self.navigationController?.pushViewController(movieDetailController, animated: true)

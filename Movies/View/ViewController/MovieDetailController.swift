@@ -23,14 +23,23 @@ class MovieDetailController: UIViewController {
     
     @IBOutlet weak var addToWatchlistButton: UIButton!
 
-    var movie: Movie?
+    private var movie: Movie?
+    var movieId:Int!
     var movieViewModel: MovieViewModel?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setButton()
+        movieViewModel?.movieItemdelegate = self
+        movieViewModel?.fetchMovie(movieId: movieId)
         setNavBar()
         setMovieDetails()
 
+    }
+
+    func setButton() {
+        addToWatchlistButton.layer.cornerRadius = 20
+        addToWatchlistButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
     }
 
     func setMovieDetails() {
@@ -51,7 +60,7 @@ class MovieDetailController: UIViewController {
         }
 
     }
-
+    
     func setNavBar() {
         self.navigationItem.title = movie?.title
         navigationController?.navigationBar.barTintColor = UIColor.systemBlue
@@ -65,4 +74,11 @@ class MovieDetailController: UIViewController {
         }
     }
 
+}
+
+extension MovieDetailController: MovieItemProtocol {
+    func movieDataChanged(movie: Movie?) {
+        self.movie = movie
+        setMovieDetails()
+    }
 }
