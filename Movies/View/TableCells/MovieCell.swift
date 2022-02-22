@@ -9,7 +9,6 @@ import UIKit
 
 class MovieCell: UITableViewCell {
 
-
     @IBOutlet weak var rootView: UIView!
 
     @IBOutlet weak var movieTitle: UILabel!
@@ -17,9 +16,8 @@ class MovieCell: UITableViewCell {
     @IBOutlet weak var movieReleased: UILabel!
     @IBOutlet weak var popularity: UILabel!
     @IBOutlet weak var watchListImage: UIImageView!
-    
     @IBOutlet weak var watchListImageWidth: NSLayoutConstraint!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         rootView.layer.cornerRadius = 10
@@ -31,7 +29,7 @@ class MovieCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
 
-    func setMovie(movie:Movie?) {
+    func setMovie(movie: Movie?) {
 
         guard let movie = movie else {
           return
@@ -44,10 +42,8 @@ class MovieCell: UITableViewCell {
             watchListImage.image = UIImage(systemName: "heart.fill")
             watchListImage.tintColor = .systemPink
             watchListImageWidth.constant = 30
-        }
-        else {
+        } else {
             watchListImageWidth.constant = 0
         }
     }
-    
 }

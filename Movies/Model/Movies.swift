@@ -19,7 +19,6 @@ class Movies: Codable {
     }
 }
 
-
 class Movie: Codable {
     let adult: Bool
     let backdropPath: String
@@ -49,4 +48,3 @@ class Movie: Codable {
         case voteCount = "vote_count"
     }
 }
-

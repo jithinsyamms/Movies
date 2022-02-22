@@ -14,17 +14,13 @@ class MovieDetailController: UIViewController {
     @IBOutlet weak var movieTitle: UILabel!
 
     @IBOutlet weak var overview: UILabel!
-    
     @IBOutlet weak var popularity: UILabel!
-    
     @IBOutlet weak var releaseDate: UILabel!
-    
     @IBOutlet weak var voteCount: UILabel!
-    
     @IBOutlet weak var addToWatchlistButton: UIButton!
 
     private var movie: Movie?
-    var movieId:Int!
+    var movieId: Int!
     var movieViewModel: MovieViewModel?
 
     override func viewDidLoad() {
@@ -60,7 +56,7 @@ class MovieDetailController: UIViewController {
         }
 
     }
-    
+
     func setNavBar() {
         self.navigationItem.title = movie?.title
         navigationController?.navigationBar.barTintColor = UIColor.systemBlue

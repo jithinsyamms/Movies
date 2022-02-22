@@ -9,11 +9,10 @@ import UIKit
 
 class MovieListController: UIViewController {
 
-
     @IBOutlet weak var moviesTableView: UITableView!
 
     private var movieViewModel = MovieViewModel()
-    private var movies:[Movie]?
+    private var movies: [Movie]?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,13 +81,12 @@ extension MovieListController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         moviesTableView.deselectRow(at: indexPath, animated: true)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if let movieDetailController = storyboard.instantiateViewController(identifier:
-                                                                                "MovieDetailController") as? MovieDetailController {
+        if let movieDetailController = storyboard.instantiateViewController(identifier: "MovieDetailController")
+                                       as? MovieDetailController {
             movieDetailController.movieId = movies?[indexPath.row].id
             movieDetailController.movieViewModel = movieViewModel
             movieDetailController.modalPresentationStyle = .fullScreen
             self.navigationController?.pushViewController(movieDetailController, animated: true)
-            
         }
     }
 }

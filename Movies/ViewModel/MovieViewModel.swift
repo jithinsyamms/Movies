@@ -12,7 +12,7 @@ protocol MovieProtocol: AnyObject {
     func errorOccured()
 }
 protocol MovieItemProtocol: AnyObject {
-    func movieDataChanged(movie:Movie?)
+    func movieDataChanged(movie: Movie?)
 }
 
 class MovieViewModel {
@@ -22,7 +22,6 @@ class MovieViewModel {
     weak var movieItemdelegate: MovieItemProtocol?
 
     func fetchMovies() {
-        
         let resource = MovieResource()
         let request = MovieRequest(resource: resource)
         request.execute { result in
@@ -35,7 +34,7 @@ class MovieViewModel {
                     }
 
                 }
-            case .failure(_):
+            case .failure:
                 DispatchQueue.main.async {
                     self.movieDelegate?.errorOccured()
                 }
@@ -43,14 +42,14 @@ class MovieViewModel {
         }
     }
 
-    func fetchMovie(movieId:Int) {
+    func fetchMovie(movieId: Int) {
         let movie = movies.filter { movie in
             return movie.id == movieId
         }.first
         self.movieItemdelegate?.movieDataChanged(movie: movie)
     }
 
-    func addToWatchlist(movieId: Int, shouldAdd:Bool) {
+    func addToWatchlist(movieId: Int, shouldAdd: Bool) {
         if let movie = movies.filter({ movie in
             return movie.id == movieId
         }).first {
