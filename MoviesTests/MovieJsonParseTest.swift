@@ -10,7 +10,7 @@ import XCTest
 
 class MovieJsonParseTest: XCTestCase {
 
-    func testCanParseGifts() throws {
+    func testCanParseMovies() throws {
                 let bundle = Bundle(for: type(of: self))
                 guard let json = bundle.url(forResource: "movie", withExtension: "json") else {
                     XCTFail("Missing file: movie.json")
