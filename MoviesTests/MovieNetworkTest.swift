@@ -23,7 +23,7 @@ class MovieNetworkTest: XCTestCase {
         movieRequest = nil
     }
 
-    func testNetworkRequestForGiftResponse() {
+    func testNetworkRequestForMovieResponse() {
 
         let expectation = self.expectation(description: "MovieResponse")
         movieRequest.execute { response in
